@@ -225,6 +225,7 @@ function launchHearts(){
 /* ============ MUSIK LATAR: PIRINGAN HITAM ============ */
 const bgMusic = document.getElementById('bg-music');
 const vinylToggle = document.getElementById('vinyl-toggle');
+const musicPopup = document.getElementById('music-popup');
 let musicPlaying = false;
 
 function toggleMusic(){
@@ -236,6 +237,7 @@ function toggleMusic(){
       // browser memblokir autoplay sebelum interaksi; klik ini sudah jadi interaksi jadi seharusnya aman
     });
     vinylToggle.classList.add('playing');
+    if(musicPopup) musicPopup.classList.add('hide');
   }
   musicPlaying = !musicPlaying;
 }
