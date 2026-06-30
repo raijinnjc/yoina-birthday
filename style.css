@@ -150,11 +150,10 @@ body{
 }
 
 .hero-row{
+  position: relative;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap: 22px;
-  flex-wrap: wrap;
 }
 
 #screen-1 .subtitle{
@@ -465,7 +464,11 @@ body{
 
 /* =================== MUSIK LATAR: PIRINGAN HITAM =================== */
 #vinyl-wrap{
-  position: relative;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 18px;
   display:flex;
   align-items:center;
 }
@@ -616,7 +619,14 @@ body{
 }
 
 @media (max-width: 480px){
-  .hero-row{ flex-direction: column; gap: 14px; }
+  .hero-row{ flex-direction: row; }
+  #vinyl-wrap{
+    position: static;
+    transform: none;
+    margin-left: 0;
+    margin-top: 14px;
+  }
+  #screen-1 .hero-row{ flex-direction: column; }
   .music-popup{
     left: 50%;
     top: calc(100% + 10px);
