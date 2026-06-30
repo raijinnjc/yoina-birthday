@@ -37,6 +37,54 @@ for(let i=0;i<40;i++){
   ambient.appendChild(s);
 }
 
+/* ============ ANIMASI BUKA KADO (SEBELUM PINDAH KE LAYAR 2) ============ */
+function spawnSparkleBurst(originEl){
+  const rect = originEl.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+
+  for(let i=0;i<18;i++){
+    const dot = document.createElement('div');
+    dot.className = 'gift-sparkle-burst';
+    const angle = (Math.PI*2) * (i/18);
+    const dist = 70 + Math.random()*60;
+    dot.style.setProperty('--bx', Math.cos(angle)*dist + 'px');
+    dot.style.setProperty('--by', Math.sin(angle)*dist + 'px');
+    dot.style.left = cx + 'px';
+    dot.style.top = cy + 'px';
+    dot.style.position = 'fixed';
+    dot.style.zIndex = '50';
+    document.body.appendChild(dot);
+    setTimeout(()=>dot.remove(), 850);
+  }
+}
+
+let giftOpening = false;
+function openGift(){
+  if(giftOpening) return;
+  giftOpening = true;
+
+  const screen1 = document.getElementById('screen-1');
+  const giftWrap = document.getElementById('gift-wrap');
+  const giftBox = giftWrap.querySelector('.gift-box');
+
+  // 1) semua tulisan di layar 1 fade out dulu, biar fokus ke kado
+  screen1.querySelectorAll('.eyebrow, h1, .subtitle').forEach(el => {
+    el.classList.add('fade-out-text');
+  });
+
+  // 2) sedikit jeda, lalu mainkan animasi kado terbuka + kilauan
+  setTimeout(() => {
+    giftWrap.classList.add('opening');
+    spawnSparkleBurst(giftBox);
+  }, 250);
+
+  // 3) setelah animasi kado selesai, baru pindah ke layar 2
+  setTimeout(() => {
+    goTo(2);
+  }, 250 + 950);
+}
+
 /* ============ NAVIGATION (NO SCROLL, CLICK ONLY) ============ */
 let currentScreen = 1;
 function goTo(n){
@@ -49,6 +97,15 @@ function goTo(n){
 
   if(n === 3) startTypewriter();
   if(n === 6) launchHearts();
+  if(n === 1) resetGiftState();
+}
+
+function resetGiftState(){
+  giftOpening = false;
+  const screen1 = document.getElementById('screen-1');
+  const giftWrap = document.getElementById('gift-wrap');
+  screen1.querySelectorAll('.fade-out-text').forEach(el => el.classList.remove('fade-out-text'));
+  giftWrap.classList.remove('opening');
 }
 
 /* ============ COUNTDOWN -> GIFT BOX ============ */
