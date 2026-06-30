@@ -455,6 +455,116 @@ body{
   to{ transform: translateY(-115vh) translateX(var(--dx, 0px)) rotate(20deg); opacity:0; }
 }
 
+/* =================== MUSIK LATAR: PIRINGAN HITAM =================== */
+#vinyl-toggle{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.vinyl-disc{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3a2a2c 0%, #1c1314 60%, #100b0c 100%);
+  box-shadow: 0 10px 26px var(--shadow), 0 0 0 1px rgba(205,160,106,.35);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s ease;
+}
+
+#vinyl-toggle:hover .vinyl-disc{
+  transform: scale(1.06);
+}
+
+.vinyl-grooves{
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle,
+      rgba(255,255,255,.06) 0px,
+      rgba(255,255,255,.06) 1px,
+      transparent 1px,
+      transparent 3px);
+}
+
+.vinyl-label{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255,250,243,.5);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 8px rgba(0,0,0,.4);
+}
+
+.vinyl-label img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vinyl-hole{
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cream);
+  z-index: 3;
+  box-shadow: 0 0 2px rgba(0,0,0,.6);
+}
+
+.vinyl-arm{
+  position: absolute;
+  top: -6px;
+  right: -2px;
+  width: 4px;
+  height: 30px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-soft));
+  border-radius: 3px;
+  transform-origin: top center;
+  transform: rotate(-35deg);
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.vinyl-arm::before{
+  content:'';
+  position: absolute;
+  top: -5px;
+  left: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* saat sedang main: piringan berputar, jarum turun ke piringan */
+#vinyl-toggle.playing .vinyl-disc{
+  animation: vinylSpin 3.5s linear infinite;
+}
+
+#vinyl-toggle.playing .vinyl-arm{
+  transform: rotate(-8deg);
+}
+
+@keyframes vinylSpin{
+  to{ transform: rotate(360deg); }
+}
+
+@media (max-width: 480px){
+  .vinyl-disc{ width: 52px; height: 52px; }
+  .vinyl-label{ width: 24px; height: 24px; }
+  #vinyl-toggle{ top: 14px; right: 14px; }
+}
+
 /* =================== PREVIEW PANEL (DEV MODE) =================== */
 #preview-panel{
   position: fixed;
