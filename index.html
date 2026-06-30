@@ -18,8 +18,34 @@
 <!-- ===================== SCREEN 1 — COUNTDOWN & KADO ===================== -->
 <section class="screen active" id="screen-1">
   <div class="eyebrow">Menghitung Hari</div>
-  <h1 class="display">Her Special Day<br>is Coming</h1>
+
+  <div class="hero-row">
+    <h1 class="display">Her Special Day<br>is Coming</h1>
+
+    <div id="vinyl-wrap">
+      <div id="vinyl-toggle" aria-label="Putar musik" role="button" tabindex="0">
+        <div class="vinyl-disc">
+          <div class="vinyl-grooves"></div>
+          <div class="vinyl-label">
+            <!-- GANTI src di bawah ini dengan foto kalian berdua -->
+            <img src="assets/images/foto-kita.jpeg" alt="Foto kita">
+          </div>
+          <div class="vinyl-hole"></div>
+        </div>
+        <div class="vinyl-arm"></div>
+      </div>
+      <div id="music-popup" class="music-popup">
+        Jangan lupa play lagu favoritnya ya! 🎵
+        <span class="music-popup-arrow"></span>
+      </div>
+    </div>
+  </div>
+
   <p class="subtitle">Sesuatu yang indah sedang menantimu, sayang</p>
+
+  <audio id="bg-music" loop>
+    <source src="assets/audio/musik-favorit.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="countdown" id="countdown">
     <div class="flip"><div class="num" id="cd-days">00</div><div class="label">Hari</div></div>
@@ -102,26 +128,6 @@
 <!-- ===================== PANEL PREVIEW (HANYA SAAT MODE PREVIEW) ===================== -->
 <div id="preview-panel"></div>
 
-<script src="script.js"></script>
-</body>
-</html>
-<!-- ===================== MUSIK LATAR (PIRINGAN HITAM) ===================== -->
-<audio id="bg-music" loop>
-  <source src="assets/audio/musik-favorit.mp3" type="audio/mpeg">
-</audio>
- 
-<div id="vinyl-toggle" aria-label="Putar musik" role="button" tabindex="0">
-  <div class="vinyl-disc">
-    <div class="vinyl-grooves"></div>
-    <div class="vinyl-label">
-      <!-- GANTI src di bawah ini dengan foto kalian berdua -->
-      <img src="assets/images/foto-kita.jpeg" alt="Foto kita">
-    </div>
-    <div class="vinyl-hole"></div>
-  </div>
-  <div class="vinyl-arm"></div>
-</div>
- 
 <script src="script.js"></script>
 </body>
 </html>
