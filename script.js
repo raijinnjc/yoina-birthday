@@ -250,6 +250,37 @@ vinylToggle.addEventListener('keydown', (e) => {
   }
 });
 
+/* ============ VIDEO: MATIKAN MUSIK SAAT VIDEO DIPUTAR ============ */
+const giftVideo = document.querySelector('.video-frame video');
+let musicWasPlayingBeforeVideo = false;
+
+if(giftVideo){
+  giftVideo.addEventListener('play', () => {
+    if(musicPlaying){
+      musicWasPlayingBeforeVideo = true;
+      bgMusic.pause();
+      vinylToggle.classList.remove('playing');
+      musicPlaying = false;
+    } else {
+      musicWasPlayingBeforeVideo = false;
+    }
+  });
+
+  function resumeMusicAfterVideo(){
+    if(musicWasPlayingBeforeVideo){
+      bgMusic.play().catch(()=>{});
+      vinylToggle.classList.add('playing');
+      musicPlaying = true;
+      musicWasPlayingBeforeVideo = false;
+    }
+  }
+
+  giftVideo.addEventListener('pause', () => {
+    // 'ended' juga memicu 'pause', jadi cukup tangani di sini saja
+    resumeMusicAfterVideo();
+  });
+}
+
 /* ============ PANEL PREVIEW: LOMPAT KE LAYAR MANA PUN ============ */
 if(PREVIEW_MODE){
   const panel = document.getElementById('preview-panel');
