@@ -222,6 +222,32 @@ function launchHearts(){
   setTimeout(()=>clearInterval(heartInterval), 30000);
 }
 
+/* ============ MUSIK LATAR: PIRINGAN HITAM ============ */
+const bgMusic = document.getElementById('bg-music');
+const vinylToggle = document.getElementById('vinyl-toggle');
+let musicPlaying = false;
+
+function toggleMusic(){
+  if(musicPlaying){
+    bgMusic.pause();
+    vinylToggle.classList.remove('playing');
+  } else {
+    bgMusic.play().catch(()=>{
+      // browser memblokir autoplay sebelum interaksi; klik ini sudah jadi interaksi jadi seharusnya aman
+    });
+    vinylToggle.classList.add('playing');
+  }
+  musicPlaying = !musicPlaying;
+}
+
+vinylToggle.addEventListener('click', toggleMusic);
+vinylToggle.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    toggleMusic();
+  }
+});
+
 /* ============ PANEL PREVIEW: LOMPAT KE LAYAR MANA PUN ============ */
 if(PREVIEW_MODE){
   const panel = document.getElementById('preview-panel');
