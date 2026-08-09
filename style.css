@@ -488,45 +488,25 @@ body.shake{
   padding: 38px 32px;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 0 40px rgba(255,107,157,.1), 0 0 80px rgba(232,160,176,.06), 0 20px 50px var(--shadow);
+  box-shadow:
+    0 0 40px rgba(255,107,157,.1),
+    0 0 80px rgba(232,160,176,.06),
+    0 20px 50px var(--shadow);
   overflow-y: auto;
   position: relative;
-  border: 1px solid transparent;
-  background-clip: padding-box;
+  border: 1px solid rgba(232,160,176,.35);
+  animation: letterGlow 4s ease-in-out infinite;
 }
 
-/* animated gradient border for letter card */
-.letter-card::before{
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 23px;
-  padding: 1px;
-  background: linear-gradient(
-    var(--letter-border-angle, 0deg),
-    var(--pink) 0%,
-    var(--rose-gold) 25%,
-    var(--gold) 50%,
-    var(--purple-soft) 75%,
-    var(--pink) 100%
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: rotateBorder 6s linear infinite;
-  z-index: -1;
-}
-
-@keyframes rotateBorder{
-  to{ --letter-border-angle: 360deg; }
-}
-
-@property --letter-border-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+@keyframes letterGlow{
+  0%,100%{
+    border-color: rgba(232,160,176,.35);
+    box-shadow: 0 0 40px rgba(255,107,157,.1), 0 0 80px rgba(232,160,176,.06), 0 20px 50px var(--shadow);
+  }
+  50%{
+    border-color: rgba(255,107,157,.5);
+    box-shadow: 0 0 40px rgba(255,107,157,.2), 0 0 60px rgba(232,160,176,.12), 0 0 100px rgba(255,107,157,.06), 0 20px 50px var(--shadow);
+  }
 }
 
 .letter-card::-webkit-scrollbar{ width:5px; }
@@ -702,13 +682,6 @@ body.shake{
   to{ transform: translateY(-115vh) translateX(var(--dx, 0px)) rotate(20deg); opacity:0; }
 }
 
-/* ---------- fireworks canvas ---------- */
-#fireworks-canvas{
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* =================== MUSIK LATAR: PIRINGAN HITAM =================== */
 #vinyl-wrap{

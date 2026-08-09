@@ -190,7 +190,7 @@ function goTo(n){
   currentScreen = n;
 
   if(n === 3) startTypewriter();
-  if(n === 6){ launchHearts(); startFireworks(); }
+  if(n === 6) launchHearts();
   if(n === 1) resetGiftState();
 }
 
@@ -320,108 +320,6 @@ function launchHearts(){
   spawnHeart();
   const heartInterval = setInterval(spawnHeart, 250);
   setTimeout(()=>clearInterval(heartInterval), 30000);
-}
-
-/* ============ FIREWORKS (CANVAS) ============ */
-let fireworksStarted = false;
-function startFireworks(){
-  if(fireworksStarted) return;
-  fireworksStarted = true;
-
-  const canvas = document.getElementById('fireworks-canvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  function resize(){
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const particles = [];
-  const fireworkColors = ['#ff6b9d','#ffa0c4','#e8a0b0','#f0c27f','#f5d9a0','#b896cc','#fff8f2'];
-
-  class Particle {
-    constructor(x, y, color, vx, vy, life){
-      this.x = x; this.y = y;
-      this.color = color;
-      this.vx = vx; this.vy = vy;
-      this.life = life;
-      this.maxLife = life;
-      this.radius = 2 + Math.random() * 2;
-    }
-    update(){
-      this.x += this.vx;
-      this.y += this.vy;
-      this.vy += 0.03; // gravity
-      this.vx *= 0.99;
-      this.life--;
-    }
-    draw(ctx){
-      const alpha = this.life / this.maxLife;
-      ctx.save();
-      ctx.globalAlpha = alpha;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius * alpha, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-      // glow
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius * alpha * 0.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-
-  function createFirework(){
-    const x = Math.random() * canvas.width;
-    const y = canvas.height * (0.15 + Math.random() * 0.4);
-    const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
-    const count = 30 + Math.floor(Math.random() * 30);
-
-    for(let i = 0; i < count; i++){
-      const angle = (Math.PI * 2) * (i / count) + Math.random() * 0.2;
-      const speed = 1.5 + Math.random() * 3;
-      particles.push(new Particle(
-        x, y, color,
-        Math.cos(angle) * speed,
-        Math.sin(angle) * speed,
-        60 + Math.floor(Math.random() * 40)
-      ));
-    }
-  }
-
-  let frameCount = 0;
-  function animate(){
-    if(currentScreen !== 6){
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      return;
-    }
-
-    ctx.fillStyle = 'rgba(0,0,0,0.08)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    for(let i = particles.length - 1; i >= 0; i--){
-      particles[i].update();
-      particles[i].draw(ctx);
-      if(particles[i].life <= 0) particles.splice(i, 1);
-    }
-
-    frameCount++;
-    if(frameCount % 90 === 0){
-      createFirework();
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  createFirework();
-  setTimeout(createFirework, 300);
-  setTimeout(createFirework, 700);
-  animate();
 }
 
 /* ============ MUSIK LATAR: PIRINGAN HITAM ============ */
