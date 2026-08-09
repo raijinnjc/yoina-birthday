@@ -13,63 +13,139 @@ const PREVIEW_MODE = new URLSearchParams(window.location.search).has('preview');
 
 /* ============ AMBIENT BACKGROUND ============ */
 const ambient = document.getElementById('ambient');
-const petalChars = ['❀','✿','♡','✦'];
-for(let i=0;i<16;i++){
+
+/* --- Aurora Glow Orbs --- */
+const auroraColors = [
+  'rgba(255,107,157,.18)',   // pink
+  'rgba(120,80,220,.2)',     // purple
+  'rgba(232,160,176,.15)',   // rose gold
+  'rgba(240,194,127,.1)',    // warm gold
+];
+for(let i = 0; i < 4; i++){
+  const orb = document.createElement('div');
+  orb.className = 'aurora-orb';
+  const size = 200 + Math.random() * 250;
+  orb.style.width = size + 'px';
+  orb.style.height = size + 'px';
+  orb.style.background = auroraColors[i % auroraColors.length];
+  orb.style.top = (Math.random() * 80) + '%';
+  orb.style.left = (Math.random() * 80) + '%';
+  orb.style.setProperty('--ax', (Math.random() * 200 - 100) + 'px');
+  orb.style.setProperty('--ay', (Math.random() * 200 - 100) + 'px');
+  orb.style.animationDuration = (15 + Math.random() * 15) + 's';
+  orb.style.animationDelay = (Math.random() * 8) + 's';
+  ambient.appendChild(orb);
+}
+
+/* --- Floating Petals (with rose-gold tones) --- */
+const petalChars = ['❀','✿','♡','✦','❁'];
+const petalColors = ['#ffa0c4','#e8a0b0','#f5d9a0','#b896cc','#ff6b9d'];
+for(let i = 0; i < 18; i++){
   const p = document.createElement('div');
   p.className = 'petal';
   p.textContent = petalChars[Math.floor(Math.random()*petalChars.length)];
   p.style.left = Math.random()*100+'%';
   p.style.fontSize = (12+Math.random()*14)+'px';
+  p.style.color = petalColors[Math.floor(Math.random()*petalColors.length)];
   p.style.animationDuration = (10+Math.random()*10)+'s';
   p.style.animationDelay = (Math.random()*12)+'s';
   ambient.appendChild(p);
 }
-for(let i=0;i<40;i++){
-  const s = document.createElement('div');
-  s.className = 'sparkle';
-  const size = Math.random()*2.6+1;
-  s.style.width = size+'px';
-  s.style.height = size+'px';
-  s.style.top = Math.random()*100+'%';
-  s.style.left = Math.random()*100+'%';
-  s.style.animationDelay = (Math.random()*3.5)+'s';
-  s.style.animationDuration = (2.5+Math.random()*3)+'s';
-  ambient.appendChild(s);
+
+/* --- Fireflies --- */
+for(let i = 0; i < 50; i++){
+  const f = document.createElement('div');
+  f.className = 'firefly';
+  const size = Math.random() * 3 + 1.5;
+  f.style.width = size + 'px';
+  f.style.height = size + 'px';
+  f.style.top = Math.random() * 100 + '%';
+  f.style.left = Math.random() * 100 + '%';
+  f.style.background = Math.random() > 0.5 ? '#ffa0c4' : '#e8a0b0';
+  f.style.animationDelay = (Math.random() * 5) + 's';
+  f.style.animationDuration = (2 + Math.random() * 4) + 's';
+  ambient.appendChild(f);
 }
 
-/* ============ ANIMASI BUKA KADO (SEBELUM PINDAH KE LAYAR 2) ============ */
-function spawnSparkleBurst(originEl){
+/* ============ ANIMASI BUKA KADO ============ */
+function spawnConfettiExplosion(originEl){
   const rect = originEl.getBoundingClientRect();
   const cx = rect.left + rect.width/2;
   const cy = rect.top + rect.height/2;
 
-  const festiveChars = ['✨', '💖', '🎉', '✦', '🎊'];
+  const confettiColors = ['#ff6b9d','#ffa0c4','#e8a0b0','#f0c27f','#f5d9a0','#b896cc','#fff8f2','#9b6bb5'];
+  const festiveChars = ['✨','💖','🎉','✦','🎊','💝','🌟','⭐'];
 
-  for(let i=0;i<35;i++){
+  // Emoji burst
+  for(let i = 0; i < 25; i++){
     const dot = document.createElement('div');
     dot.className = 'gift-sparkle-burst';
-    
-    if(Math.random() > 0.5) {
-      dot.textContent = festiveChars[Math.floor(Math.random()*festiveChars.length)];
-      dot.style.background = 'transparent';
-      dot.style.fontSize = (12 + Math.random()*16) + 'px';
-    } else {
-      dot.style.width = (4 + Math.random()*4) + 'px';
-      dot.style.height = dot.style.width;
-      dot.style.background = i % 2 === 0 ? 'var(--pink-soft)' : 'var(--gold)';
-    }
+    dot.textContent = festiveChars[Math.floor(Math.random() * festiveChars.length)];
+    dot.style.background = 'transparent';
+    dot.style.fontSize = (14 + Math.random() * 20) + 'px';
 
-    const angle = (Math.PI*2) * Math.random();
-    const dist = 60 + Math.random()*150;
-    dot.style.setProperty('--bx', Math.cos(angle)*dist + 'px');
-    dot.style.setProperty('--by', Math.sin(angle)*dist + 'px');
+    const angle = (Math.PI * 2) * Math.random();
+    const dist = 80 + Math.random() * 180;
+    dot.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+    dot.style.setProperty('--by', Math.sin(angle) * dist + 'px');
     dot.style.left = cx + 'px';
     dot.style.top = cy + 'px';
     dot.style.position = 'fixed';
     dot.style.zIndex = '50';
     document.body.appendChild(dot);
-    setTimeout(()=>dot.remove(), 1000);
+    setTimeout(() => dot.remove(), 1200);
   }
+
+  // Confetti rectangles
+  for(let i = 0; i < 40; i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const w = 4 + Math.random() * 6;
+    const h = 8 + Math.random() * 12;
+    piece.style.width = w + 'px';
+    piece.style.height = h + 'px';
+    piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+
+    const angle = (Math.PI * 2) * Math.random();
+    const dist = 100 + Math.random() * 250;
+    piece.style.setProperty('--cx', Math.cos(angle) * dist + 'px');
+    piece.style.setProperty('--cy', (Math.sin(angle) * dist - Math.random() * 100) + 'px');
+    piece.style.setProperty('--cr', (Math.random() * 720 - 360) + 'deg');
+    piece.style.left = cx + 'px';
+    piece.style.top = cy + 'px';
+    piece.style.animationDuration = (1 + Math.random() * 0.8) + 's';
+    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 2000);
+  }
+
+  // Glowing dots
+  for(let i = 0; i < 20; i++){
+    const dot = document.createElement('div');
+    dot.className = 'gift-sparkle-burst';
+    const s = 3 + Math.random() * 5;
+    dot.style.width = s + 'px';
+    dot.style.height = s + 'px';
+    dot.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    dot.style.boxShadow = `0 0 6px 2px ${confettiColors[Math.floor(Math.random() * confettiColors.length)]}`;
+
+    const angle = (Math.PI * 2) * Math.random();
+    const dist = 60 + Math.random() * 140;
+    dot.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+    dot.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+    dot.style.left = cx + 'px';
+    dot.style.top = cy + 'px';
+    dot.style.position = 'fixed';
+    dot.style.zIndex = '50';
+    document.body.appendChild(dot);
+    setTimeout(() => dot.remove(), 1200);
+  }
+}
+
+function triggerCameraShake(){
+  document.body.classList.add('shake');
+  setTimeout(() => document.body.classList.remove('shake'), 500);
 }
 
 let giftOpening = false;
@@ -86,16 +162,21 @@ function openGift(){
     el.classList.add('fade-out-text');
   });
 
-  // 2) sedikit jeda, lalu mainkan animasi kado terbuka + kilauan
+  // 2) sedikit jeda, lalu mainkan animasi kado terbuka
   setTimeout(() => {
     giftWrap.classList.add('opening');
-    spawnSparkleBurst(giftBox);
   }, 250);
 
-  // 3) setelah animasi kado selesai, baru pindah ke layar 2
+  // 3) di tengah animasi, trigger confetti + camera shake
+  setTimeout(() => {
+    spawnConfettiExplosion(giftBox);
+    triggerCameraShake();
+  }, 250 + 800);
+
+  // 4) setelah animasi kado selesai, baru pindah ke layar 2
   setTimeout(() => {
     goTo(2);
-  }, 250 + 1200);
+  }, 250 + 1600);
 }
 
 /* ============ NAVIGATION (NO SCROLL, CLICK ONLY) ============ */
@@ -109,7 +190,7 @@ function goTo(n){
   currentScreen = n;
 
   if(n === 3) startTypewriter();
-  if(n === 6) launchHearts();
+  if(n === 6){ launchHearts(); startFireworks(); }
   if(n === 1) resetGiftState();
 }
 
@@ -220,14 +301,16 @@ function launchHearts(){
   heartsLaunched = true;
 
   const burst = document.getElementById('heart-burst');
-  const chars = ['♡','❤','✦','❀'];
+  const chars = ['♡','❤','✦','❀','💕','💖','🌸','✨'];
+  const colors = ['#ffa0c4','#e8a0b0','#f0c27f','#f5d9a0','#b896cc','#ff6b9d'];
 
   function spawnHeart(){
     const h = document.createElement('div');
     h.className = 'heart-fly';
     h.textContent = chars[Math.floor(Math.random()*chars.length)];
     h.style.left = Math.random()*100+'%';
-    h.style.fontSize = (14+Math.random()*16)+'px';
+    h.style.fontSize = (14+Math.random()*18)+'px';
+    h.style.color = colors[Math.floor(Math.random()*colors.length)];
     h.style.setProperty('--dx', (Math.random()*80-40)+'px');
     h.style.animationDuration = (5+Math.random()*4)+'s';
     burst.appendChild(h);
@@ -235,8 +318,110 @@ function launchHearts(){
   }
 
   spawnHeart();
-  const heartInterval = setInterval(spawnHeart, 350);
+  const heartInterval = setInterval(spawnHeart, 250);
   setTimeout(()=>clearInterval(heartInterval), 30000);
+}
+
+/* ============ FIREWORKS (CANVAS) ============ */
+let fireworksStarted = false;
+function startFireworks(){
+  if(fireworksStarted) return;
+  fireworksStarted = true;
+
+  const canvas = document.getElementById('fireworks-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const particles = [];
+  const fireworkColors = ['#ff6b9d','#ffa0c4','#e8a0b0','#f0c27f','#f5d9a0','#b896cc','#fff8f2'];
+
+  class Particle {
+    constructor(x, y, color, vx, vy, life){
+      this.x = x; this.y = y;
+      this.color = color;
+      this.vx = vx; this.vy = vy;
+      this.life = life;
+      this.maxLife = life;
+      this.radius = 2 + Math.random() * 2;
+    }
+    update(){
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += 0.03; // gravity
+      this.vx *= 0.99;
+      this.life--;
+    }
+    draw(ctx){
+      const alpha = this.life / this.maxLife;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius * alpha, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      // glow
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius * alpha * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function createFirework(){
+    const x = Math.random() * canvas.width;
+    const y = canvas.height * (0.15 + Math.random() * 0.4);
+    const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+    const count = 30 + Math.floor(Math.random() * 30);
+
+    for(let i = 0; i < count; i++){
+      const angle = (Math.PI * 2) * (i / count) + Math.random() * 0.2;
+      const speed = 1.5 + Math.random() * 3;
+      particles.push(new Particle(
+        x, y, color,
+        Math.cos(angle) * speed,
+        Math.sin(angle) * speed,
+        60 + Math.floor(Math.random() * 40)
+      ));
+    }
+  }
+
+  let frameCount = 0;
+  function animate(){
+    if(currentScreen !== 6){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for(let i = particles.length - 1; i >= 0; i--){
+      particles[i].update();
+      particles[i].draw(ctx);
+      if(particles[i].life <= 0) particles.splice(i, 1);
+    }
+
+    frameCount++;
+    if(frameCount % 90 === 0){
+      createFirework();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  createFirework();
+  setTimeout(createFirework, 300);
+  setTimeout(createFirework, 700);
+  animate();
 }
 
 /* ============ MUSIK LATAR: PIRINGAN HITAM ============ */
