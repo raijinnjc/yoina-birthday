@@ -148,20 +148,24 @@ if(PREVIEW_MODE){
 
 /* ============ TYPEWRITER LETTER ============ */
 const letterText =
-`Untuk Yoina Doverianingtyas Pardosi,
+`Untuk Sayangkuuuuu Yoina Doverianingtyas Pardosi,
 
-Selamat ulang tahun, sayangku. Di hari yang spesial ini, aku ingin kamu tahu betapa berartinya kamu untukku.
+Selamat ulang tahun, sayangku, cintaku, cantikku, duniakuuuu.
 
-Setiap hari bersamamu adalah hadiah, dan hari ini adalah giliranku untuk merayakanmu sepenuhnya. Terima kasih sudah menjadi tempat pulang yang paling hangat, paling tenang, dan paling jujur yang pernah aku miliki.
+Aku ngerasa makasihh banyak ya sayangg buat selama ini udah mau nemenin akuuu, susah seneng bareng, tau sendiri kan kita dari awal secapek apa dan se ditolak apa. Aku seneng kamu sadar kalau kita itu bisa ngelewatin semuanya
 
-Aku berdoa tahun ini membawakanmu kebahagiaan yang tak pernah putus, kesehatan yang selalu terjaga, dan mimpi-mimpi yang perlahan menjadi nyata. Semoga setiap langkahmu dipenuhi cahaya, dan setiap malammu dipenuhi ketenangan.
+Aku berdoa tahun ini, semoga Tuhan Yesus selalu memberkati hidup kamuuu, jalanmu dimudahin dan kamu selalu bisa menerima arah dari Tuhan sayangg. Aku tau mungkin ini berat tapi ini doa aku buat kamu biar kamu bisa selalu sadar akan hal tersebut
 
-Terima kasih sudah memilih untuk tetap ada, di hari biasa maupun hari istimewa. Aku menyayangimu lebih dari kata-kata yang bisa kutuliskan di sini.
+Terima kasih sudah memilih untuk tetap ada, saat kita berantem, saat kita ga lagi baik-baik aja, saat kita hampir mau selesai, kita, aku dan kamu masih memilih untuk bertahan dan menurunkan ego kita
 
-Selamat ulang tahun, cintaku. Tetaplah bersinar seperti biasanya.
+Aku harapp kamu sadarr betapa berharganya dirimu, betapa bernilainyaa kamuu di mataku dan aku gamau kamu kehilangan value yang udah kamu bangun sejak awal hanya karena hal-hal sepele
 
-Dengan seluruh cinta yang kupunya,
-Rifqi`;
+Di umur yang ke 21, aku harapp kamu bisa jadi lebih dewasaaa, bisa lebih bijak menghadapi semuanya dan memutuskan segala hall, bisa memilah mana yang baik dan buruk tanpa kamu harus mengorbankan dan kehilangan dirimu sekali lagi
+
+Selamat ulang tahun, cintaku. Semogaaa kamu selaluuu baahagiiaaa selalu senyum selalu happy di manapun kamu berada, next kita di pelaminan ya sayangg semogaaa.
+
+Dari orang yang paling sayang kamuuuu di dunia ini setelah keluargamu,
+Qiqi<3`;
 
 let typewriterStarted = false;
 function startTypewriter(){
