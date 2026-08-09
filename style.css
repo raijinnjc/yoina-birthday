@@ -244,16 +244,37 @@ body{
 
 .gift-wrap.opening{ pointer-events: none; }
 
-.gift-wrap.opening .gift-box{
-  animation: giftOpenSequence 1s cubic-bezier(.4,0,.2,1) forwards;
+.gift-wrap.opening .gift-box {
+  animation: boxShake 1.2s cubic-bezier(.4,0,.2,1) forwards;
 }
 
-@keyframes giftOpenSequence{
-  0%{   transform: scale(1) rotate(-2deg); filter: drop-shadow(0 14px 22px var(--shadow)) brightness(1); }
-  25%{  transform: scale(1.18) rotate(6deg); filter: drop-shadow(0 18px 30px rgba(232,120,154,.4)) brightness(1.1); }
-  50%{  transform: scale(0.92) rotate(-6deg); filter: drop-shadow(0 18px 30px rgba(232,120,154,.5)) brightness(1.25); }
-  75%{  transform: scale(1.5) rotate(3deg); filter: drop-shadow(0 24px 40px rgba(232,120,154,.6)) brightness(1.6); opacity: 1; }
-  100%{ transform: scale(2.1) rotate(0deg); filter: drop-shadow(0 24px 40px rgba(232,120,154,.8)) brightness(2); opacity: 0; }
+@keyframes boxShake {
+  0%   { transform: scale(1) rotate(-2deg); }
+  20%  { transform: scale(1.1) rotate(6deg); filter: drop-shadow(0 18px 30px rgba(232,120,154,.4)) brightness(1.1); }
+  40%  { transform: scale(0.95) rotate(-6deg); filter: drop-shadow(0 18px 30px rgba(232,120,154,.5)) brightness(1.25); }
+  60%  { transform: scale(1.2) rotate(3deg); filter: drop-shadow(0 24px 40px rgba(232,120,154,.6)) brightness(1.4); opacity: 1; }
+  100% { transform: scale(1.6) rotate(0deg); filter: drop-shadow(0 24px 40px rgba(232,120,154,.8)) brightness(1.6); opacity: 0; }
+}
+
+.gift-wrap.opening .gift-lid {
+  transform-origin: 50% 35%;
+  animation: lidFly 1.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+@keyframes lidFly {
+  0%   { transform: translateY(0) rotateX(0); }
+  40%  { transform: translateY(-5px) rotateX(15deg); }
+  60%  { transform: translateY(-30px) rotateX(45deg); }
+  100% { transform: translateY(-100px) rotateX(120deg) scale(1.2); opacity: 0; }
+}
+
+.gift-wrap.opening .box-inside { opacity: 1; }
+.gift-wrap.opening .magic-light { animation: lightBurst 1.2s ease-out forwards; }
+
+@keyframes lightBurst {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  60%  { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
 }
 
 .gift-wrap.opening .gift-hint{
@@ -266,12 +287,12 @@ body{
 
 .gift-sparkle-burst{
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--pink-soft);
   pointer-events: none;
-  animation: burstOut .8s ease-out forwards;
+  border-radius: 50%;
+  animation: burstOut 1s ease-out forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes burstOut{
@@ -294,6 +315,31 @@ body{
   height: 130px;
   animation: floatGift 2.6s ease-in-out infinite;
   filter: drop-shadow(0 0 20px var(--pink-glow)) drop-shadow(0 14px 22px var(--shadow));
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+
+.gift-body, .gift-lid {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.box-inside {
+  opacity: 0;
+  transition: opacity 0.3s 0.2s;
+}
+
+.magic-light {
+  position: absolute;
+  top: 42%; left: 50%;
+  width: 10px; height: 10px;
+  background: #fff;
+  box-shadow: 0 0 40px 30px var(--pink), 0 0 80px 50px var(--cream);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  z-index: 1;
 }
 
 @keyframes floatGift{

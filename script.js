@@ -43,11 +43,24 @@ function spawnSparkleBurst(originEl){
   const cx = rect.left + rect.width/2;
   const cy = rect.top + rect.height/2;
 
-  for(let i=0;i<18;i++){
+  const festiveChars = ['✨', '💖', '🎉', '✦', '🎊'];
+
+  for(let i=0;i<35;i++){
     const dot = document.createElement('div');
     dot.className = 'gift-sparkle-burst';
-    const angle = (Math.PI*2) * (i/18);
-    const dist = 70 + Math.random()*60;
+    
+    if(Math.random() > 0.5) {
+      dot.textContent = festiveChars[Math.floor(Math.random()*festiveChars.length)];
+      dot.style.background = 'transparent';
+      dot.style.fontSize = (12 + Math.random()*16) + 'px';
+    } else {
+      dot.style.width = (4 + Math.random()*4) + 'px';
+      dot.style.height = dot.style.width;
+      dot.style.background = i % 2 === 0 ? 'var(--pink-soft)' : 'var(--gold)';
+    }
+
+    const angle = (Math.PI*2) * Math.random();
+    const dist = 60 + Math.random()*150;
     dot.style.setProperty('--bx', Math.cos(angle)*dist + 'px');
     dot.style.setProperty('--by', Math.sin(angle)*dist + 'px');
     dot.style.left = cx + 'px';
@@ -55,7 +68,7 @@ function spawnSparkleBurst(originEl){
     dot.style.position = 'fixed';
     dot.style.zIndex = '50';
     document.body.appendChild(dot);
-    setTimeout(()=>dot.remove(), 850);
+    setTimeout(()=>dot.remove(), 1000);
   }
 }
 
@@ -82,7 +95,7 @@ function openGift(){
   // 3) setelah animasi kado selesai, baru pindah ke layar 2
   setTimeout(() => {
     goTo(2);
-  }, 250 + 950);
+  }, 250 + 1200);
 }
 
 /* ============ NAVIGATION (NO SCROLL, CLICK ONLY) ============ */
